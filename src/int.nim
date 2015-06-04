@@ -310,6 +310,56 @@ proc `-`*(x: int | culong, y: Int): Int =
   ## Returns the difference x-y.
   newInt().sub(x, y)
 
+proc addMul*(z, x, y: Int): Int =
+  ## Increments `z` by `x` times `y`.
+  result = z
+  mpz_addmul(result[], x[], y[])
+
+proc addMul*(z, x: Int, y: culong): Int =
+  ## Increments `z` by `x` times `y`.
+  result = z
+  mpz_addmul_ui(result[], x[], y)
+
+proc addMul*(z, x: Int, y: int): Int =
+  ## Increments `z` by `x` times `y`.
+  when isLLP64():
+    if y.fitsLLP64ULong: z.addMul(x, y.culong) else: z.addMul(x, newInt(y))
+  else:
+    if y >= 0: z.addMul(x, y.culong) else: z.addMul(x, newInt(y))
+
+proc addMul*(z: Int, x: int | culong, y: Int): Int =
+  ## Increments `z` by `x` times `y`.
+  z.addMul(y, x)
+
+proc addMul*(z: Int, x: int | culong, y: int | culong): Int =
+  ## Increments `z` by `x` times `y`.
+  z.addMul(newInt(x), y)
+
+proc subMul*(z, x, y: Int): Int =
+  ## Decrements `z` by `x` times `y`.
+  result = z
+  mpz_submul(result[], x[], y[])
+
+proc subMul*(z, x: Int, y: culong): Int =
+  ## Decrements `z` by `x` times `y`.
+  result = z
+  mpz_submul_ui(result[], x[], y)
+
+proc subMul*(z, x: Int, y: int): Int =
+  ## Decrements `z` by `x` times `y`.
+  when isLLP64():
+    if y.fitsLLP64ULong: z.subMul(x, y.culong) else: z.subMul(x, newInt(y))
+  else:
+    if y >= 0: z.subMul(x, y.culong) else: z.subMul(x, newInt(y))
+
+proc subMul*(z: Int, x: int | culong, y: Int): Int =
+  ## Decrements `z` by `x` times `y`.
+  z.subMul(y, x)
+
+proc subMul*(z: Int, x: int | culong, y: int | culong): Int =
+  ## Increments `z` by `x` times `y`.
+  z.subMul(newInt(x), y)
+
 proc inc*(z: Int, x: int | culong | Int) =
   ## Increments `z` by `x`.
   discard z.add(z, x)

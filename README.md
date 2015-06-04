@@ -1,6 +1,6 @@
 # Bignum
 
-Wrapper around [jovial's GMP bindings](https://github.com/jovial/nim-gmp) for the Nim language.
+Wrapper around the [GMP bindings](https://github.com/FedeOmoto/nim-gmp) for the Nim language.
 
 ## Documentation
 
