@@ -21,7 +21,8 @@ proc newRat*(): Rat =
   mpq_init(result[])
 
 proc newRat*(f: float): Rat =
-  ## Creates a new Rat and set it to 0/1.
+  ## Creates a new Rat and set it to the value of `f`. There is no rounding,
+  ## this conversion is exact.
   if classify(f) == fcNan or f == Inf or f == NegInf:
     raise newException(ValueError, "Rat does not support NaN, Inf and NegInf")
   new(result, finalizeRat)
@@ -121,13 +122,13 @@ proc denom*(x: Rat): Int =
   result = newInt()
   mpq_get_den(result[], x[])
 
-proc setNum*(z: Int, x: int | culong | Int): Rat =
+proc setNum*(z: Rat, x: int | culong | Int): Rat =
   ## Sets the numerator of `z` to `x` and returns `z`.
   result = z
   discard result.numRef.set(x)
   mpq_canonicalize(result[])
 
-proc setDenom*(z: Int, x: int | culong | Int): Rat =
+proc setDenom*(z: Rat, x: int | culong | Int): Rat =
   ## Sets the denominator of `z` to `x` and returns `z`.
   if x == 0: raise newException(DivByZeroError, "Division by zero")
   result = z
