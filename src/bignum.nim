@@ -17,4 +17,4 @@
 
 import gmp
 
-include int, rat
+include bignum/private/int, bignum/private/rat

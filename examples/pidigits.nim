@@ -2,7 +2,7 @@
 ## Ported from original C version by Mr Ledrug, see:
 ## http://benchmarksgame.alioth.debian.org/u64q/program.php?test=pidigits&lang=gcc&id=1
 
-import bignum, unsigned, strutils, os
+import bignum, strutils, os
 
 var
   tmp1 = newInt()
