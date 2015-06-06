@@ -51,7 +51,7 @@ proc newInt*(x: int = 0): Int =
       else:
         result[].mp_d[] = x.mp_limb_t
   else:
-    mpz_init_set_si(result[], x)
+    mpz_init_set_si(result[], x.clong)
 
 proc newInt*(s: string, base: cint = 10): Int =
   ## Allocates and returns a new Int set to `s`, interpreted in the given `base`.
@@ -110,7 +110,7 @@ proc set*(z: Int, x: int): Int =
       else:
         result[].mp_d[] = x.mp_limb_t
   else:
-    mpz_set_si(result[], x)
+    mpz_set_si(result[], x.clong)
 
 proc set*(z: Int, s: string, base: cint = 10): Int =
   ## Sets `z` to the value of `s`, interpreted in the given `base`, and returns `z`.
@@ -186,7 +186,7 @@ proc cmp*(x: Int, y: int): cint =
         else:
           result = -1
   else:
-    result = mpz_cmp_si(x[], y)
+    result = mpz_cmp_si(x[], y.clong)
 
   if result < 0:
     result = -1
@@ -397,7 +397,7 @@ proc mul*(z, x: Int, y: int): Int =
     else:
       mpz_mul(result[], x[], newInt(y)[])
   else:
-    mpz_mul_si(result[], x[], y)
+    mpz_mul_si(result[], x[], y.clong)
 
 proc `*`*(x: Int, y: int | culong | Int): Int =
   ## Returns the product x*y.
