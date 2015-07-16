@@ -110,7 +110,7 @@ proc `$`*(z: Rat, base: range[(2.cint) .. (36.cint)] = 10): string =
   ## The stringify operator for a Rat argument. Returns `z` converted to a
   ## string in the given `base`.
   result = newString(digits(z.numRef, base) + digits(z.denomRef, base) + 3)
-  discard mpq_get_str(result, base, z[])
+  result.setLen(mpq_get_str(result, base, z[]).len)
 
 proc num*(x: Rat): Int =
   ## Returns the numerator of `x`.

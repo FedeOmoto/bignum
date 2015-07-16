@@ -83,7 +83,7 @@ proc `$`*(z: Int, base: cint = 10): string =
   ## string in the given `base`.
   validBase(base)
   result = newString(digits(z, base) + 2)
-  discard mpz_get_str(result, base, z[])
+  result.setLen(mpz_get_str(result, base, z[]).len)
 
 proc set*(z, x: Int): Int =
   ## Sets `z` to `x` and returns `z`.
