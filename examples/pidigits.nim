@@ -12,7 +12,7 @@ var
   num  = newInt(1)
 
 proc extractDigit(nth: int): int =
-  # joggling between tmp1 and tmp2, so GMP won't have to use temp buffers
+  # juggling between tmp1 and tmp2, so GMP won't have to use temp buffers
   discard tmp1.mul(num, nth)
   discard tmp2.add(tmp1, acc)
   discard tmp1.`div`(tmp2, den)
